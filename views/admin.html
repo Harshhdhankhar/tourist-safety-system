@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Tourist Safety System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Tourist Safety System - Admin</h1>
+            </div>
+            <nav class="admin-nav" id="adminNav" style="display: none;">
+                <span id="adminWelcome" class="welcome-text">Admin Panel</span>
+                <button class="btn btn-outline-small" onclick="adminLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </nav>
+        </header>
+
+        <!-- Login Form -->
+        <div id="adminLoginSection" class="main-content">
+            <div class="form-container">
+                <div class="form-header">
+                    <i class="fas fa-user-shield"></i>
+                    <h2>Admin Login</h2>
+                    <p>Secure access to document verification system</p>
+                </div>
+
+                <form id="adminLoginForm" class="login-form active">
+                    <div class="form-group">
+                        <label for="adminIdentifier">Email or Username *</label>
+                        <input type="text" id="adminIdentifier" name="identifier" required 
+                               placeholder="Enter admin email or username">
+                        <span class="error-message" id="adminIdentifierError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminPassword">Password *</label>
+                        <div class="password-input">
+                            <input type="password" id="adminPassword" name="password" required 
+                                   placeholder="Enter admin password">
+                            <button type="button" class="toggle-password" onclick="togglePassword('adminPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="adminPasswordError"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-admin">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Admin Login
+                        </button>
+                    </div>
+                </form>
+
+                <div class="form-footer">
+                    <p><a href="/">← Back to Main Site</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="main-content" style="display: none;">
+            <div class="admin-container">
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalUsers">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="pendingVerifications">0</h3>
+                            <p>Pending Verifications</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="approvedUsers">0</h3>
+                            <p>Approved Users</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="newUsersToday">0</h3>
+                            <p>New Today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchTab('verifications')">
+                        <i class="fas fa-file-check"></i>
+                        Document Verifications
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('users')">
+                        <i class="fas fa-users"></i>
+                        User Management
+                    </button>
+                </div>
+
+                <!-- Verifications Tab -->
+                <div id="verificationsTab" class="tab-content active">
+                    <div class="section-header">
+                        <h3><i class="fas fa-file-check"></i> Pending Document Verifications</h3>
+                        <button class="btn btn-outline" onclick="refreshVerifications()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                    </div>
+                    
+                    <div id="verificationsContainer">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-check" style="font-size: 3rem; color: #6c757d; margin-bottom: 1rem;"></i>
+                            <h4>Loading Verifications...</h4>
+                            <p class="text-muted">Please wait while we fetch pending verifications</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div id="usersTab" class="tab-content">
+                    <div class="section-header">
+                        <h3><i class="fas fa-users"></i> User Management</h3>
+                        <div class="filters">
+                            <select id="touristTypeFilter" onchange="filterUsers()">
+                                <option value="">All Tourist Types</option>
+                                <option value="indian">Indian Tourists</option>
+                                <option value="foreign">Foreign Tourists</option>
+                            </select>
+                            <select id="statusFilter" onchange="filterUsers()">
+                                <option value="">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="usersContainer">
+                        <div class="empty-state">
+                            <i class="fas fa-users" style="font-size: 3rem; color: #6c757d; margin-bottom: 1rem;"></i>
+                            <h4>Loading Users...</h4>
+                            <p class="text-muted">Please wait while we fetch user data</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3><i class="fas fa-user"></i> User Details</h3>
+                <button class="close-btn" onclick="closeUserModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="userModalContent">
+                <!-- User details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="verificationModalTitle">Document Verification</h3>
+                <button class="close-btn" onclick="closeVerificationModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="verificationNotes">Notes (Required for rejection)</label>
+                    <textarea id="verificationNotes" rows="4" 
+                              placeholder="Enter verification notes or rejection reason..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-success" onclick="approveDocument()">
+                        <i class="fas fa-check"></i> Approve
+                    </button>
+                    <button type="button" class="btn btn-error" onclick="rejectDocument()">
+                        <i class="fas fa-times"></i> Reject
+                    </button>
+                    <button type="button" class="btn btn-outline" onclick="closeVerificationModal()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <script src="/js/admin.js?v=2"></script>
+</body>
+</html>

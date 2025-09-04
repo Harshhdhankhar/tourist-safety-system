@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Tourist Registration - Tourist Safety System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Tourist Safety System</h1>
+            </div>
+            <nav>
+                <a href="/" class="btn btn-outline-small">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+                <div class="form-header">
+                    <i class="fas fa-flag"></i>
+                    <h2>Indian Tourist Registration</h2>
+                    <p>Secure registration with Aadhar verification</p>
+                </div>
+
+                <form id="registrationForm" enctype="multipart/form-data">
+                    <div class="form-section">
+                        <h3><i class="fas fa-id-card"></i> Aadhar Verification</h3>
+                        
+                        <div class="form-group">
+                            <label for="document">Upload Aadhar Card *</label>
+                            <input type="file" id="document" name="document" accept="image/*" required>
+                            <small class="form-text">Upload clear image of your Aadhar card (front side) - we'll auto-fill your details</small>
+                            <div id="ocrProcessing" class="ocr-processing" style="display: none;">
+                                <div class="processing-spinner"></div>
+                                <span>Processing document...</span>
+                            </div>
+                            <div id="ocrResults" class="ocr-results" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="documentNumber">Aadhar Number *</label>
+                            <input type="text" id="documentNumber" name="documentNumber" required 
+                                   placeholder="Enter 12-digit Aadhar number" maxlength="12">
+                            <small class="form-text">This will be auto-filled from your document</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required 
+                                   placeholder="Enter your full name as per Aadhar">
+                            <span class="error-message" id="fullNameError"></span>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required 
+                                       placeholder="your.email@example.com">
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username *</label>
+                                <input type="text" id="username" name="username" required 
+                                       placeholder="Choose a unique username">
+                                <span class="error-message" id="usernameError"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gender">Gender *</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="error-message" id="genderError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Mobile Number *</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" required 
+                                       placeholder="10-digit mobile number">
+                                <span class="error-message" id="phoneNumberError"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <div class="password-input">
+                                <input type="password" id="password" name="password" required 
+                                       placeholder="Create a strong password">
+                                <small>Password must contain: 8+ characters, uppercase, lowercase, number, and special character</small>
+                                <div class="password-preview" id="passwordPreview">
+                                    <small><strong>Password:</strong> <span id="passwordText">(empty)</span></small>
+                                </div>
+                            </div>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fas fa-user-plus"></i>
+                            Register Account
+                        </button>
+                    </div>
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="/login">Login here</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing your registration...</p>
+    </div>
+
+
+    <script src="/js/register-indian.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tourist Safety System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/map-styles.css">
+    <link rel="stylesheet" href="/css/dialog-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Tourist Safety System</h1>
+            </div>
+            <nav class="dashboard-nav">
+                <span id="userWelcome" class="welcome-text">Welcome!</span>
+                <button class="btn btn-outline-small" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard-container">
+                <!-- Emergency SOS -->
+                <div class="sos-card">
+                    <div class="sos-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Emergency Alert</h3>
+                    </div>
+                    <div class="sos-content">
+                        <button class="sos-btn" id="sosButton">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>EMERGENCY SOS</span>
+                        </button>
+                        <p class="sos-description">Press for immediate emergency assistance.</p>
+                        <p class="verification-notice" id="sosVerificationNotice" style="display: none; color: #dc3545; font-size: 0.9em; margin-top: 10px;">
+                            <i class="fas fa-exclamation-triangle"></i> Phone verification required
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Safety Map -->
+                <div class="map-card">
+                    <div class="map-header">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Safety Map</h3>
+                        <div class="map-legend">
+                            <span class="legend-item safe"><i class="fas fa-circle"></i> Safe Areas</span>
+                            <span class="legend-item restricted"><i class="fas fa-circle"></i> Restricted Areas</span>
+                            <span class="legend-item user-location"><i class="fas fa-circle"></i> Your Location</span>
+                        </div>
+                    </div>
+                    <div id="safetyMap" class="map-container"></div>
+                </div>
+
+                <!-- Emergency Contacts Card -->
+                <div class="contacts-card">
+                    <div class="contacts-header">
+                        <i class="fas fa-address-book"></i>
+                        <h3>Emergency Contacts</h3>
+                        <button class="btn btn-primary btn-small" id="addContactBtn">
+                            <i class="fas fa-plus"></i> Add Contact
+                        </button>
+                    </div>
+                    <div class="contacts-content" id="contactsList">
+                        <div class="no-contacts" id="noContactsMessage">
+                            <i class="fas fa-user-plus"></i>
+                            <p>No emergency contacts added yet</p>
+                            <button class="btn btn-outline" id="addFirstContactBtn">Add Your First Contact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification Status Card -->
+                <div class="status-card" id="verificationStatus">
+                    <div class="status-header">
+                        <i class="fas fa-shield-check"></i>
+                        <h3>Verification Status</h3>
+                    </div>
+                    <div class="status-content">
+                        <div class="status-item">
+                            <span class="status-label">Phone Verification:</span>
+                            <span class="status-value" id="phoneStatus">
+                                <i class="fas fa-spinner fa-spin"></i> Loading...
+                            </span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Document Verification:</span>
+                            <span class="status-value" id="documentStatus">
+                                <i class="fas fa-spinner fa-spin"></i> Loading...
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Profile Update Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Update Profile</h3>
+                <button class="close-btn" id="closeProfileModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="profileUpdateForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="updateFullName">Full Name</label>
+                            <input type="text" id="updateFullName" name="fullName" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateEmail">Email</label>
+                            <input type="email" id="updateEmail" name="email" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="updateUsername">Username</label>
+                            <input type="text" id="updateUsername" name="username" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePhone">Phone Number</label>
+                            <input type="tel" id="updatePhone" name="phoneNumber" readonly>
+                        </div>
+                    </div>
+                    <div class="emergency-contact-section">
+                        <h4><i class="fas fa-phone"></i> Emergency Contact</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emergencyName">Contact Name</label>
+                                <input type="text" id="emergencyName" name="emergencyName">
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyPhone">Contact Phone</label>
+                                <input type="tel" id="emergencyPhone" name="emergencyPhone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyRelation">Relationship</label>
+                            <input type="text" id="emergencyRelation" name="emergencyRelation">
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                        <button type="button" class="btn btn-outline" id="cancelProfileModalBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus"></i> <span id="contactModalTitle">Add Emergency Contact</span></h3>
+                <button class="close-btn" id="closeContactModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm">
+                    <input type="hidden" id="contactId" name="contactId">
+                    <div class="form-group">
+                        <label for="contactName">Contact Name *</label>
+                        <input type="text" id="contactName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Phone Number *</label>
+                        <input type="tel" id="contactPhone" name="phoneNumber" required placeholder="+91xxxxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactRelation">Relationship</label>
+                        <select id="contactRelation" name="relationship">
+                            <option value="">Select relationship</option>
+                            <option value="Family">Family</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Colleague">Colleague</option>
+                            <option value="Emergency Service">Emergency Service</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email (Optional)</label>
+                        <input type="email" id="contactEmail" name="email">
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Contact
+                        </button>
+                        <button type="button" class="btn btn-outline" id="cancelContactModalBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

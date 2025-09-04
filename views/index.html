@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TouristSafe">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="TouristSafe">
+    <title>Tourist Safety System - Secure Registration & Verification</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pwa.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans+Bengali:wght@400;500;700&family=Noto+Sans+Telugu:wght@400;500;700&family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans+Urdu:wght@400;500;700&family=Noto+Sans+Kannada:wght@400;500;700&family=Noto+Sans+Malayalam:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+    
+    <!-- Standard Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Tourist Safety System</h1>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="hero-section">
+                <h2>Welcome to India's Premier Tourist Platform</h2>
+                <p>Register with document verification and OTP authentication for a secure travel experience.</p>
+            </div>
+
+            <div class="registration-options">
+                <div class="option-card indian-tourist">
+                    <div class="card-header">
+                        <i class="fas fa-flag"></i>
+                        <h3>Indian Tourist</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="features">
+                            <li><i class="fas fa-id-card"></i> Aadhar Card Verification</li>
+                            <li><i class="fas fa-mobile-alt"></i> OTP Authentication</li>
+                            <li><i class="fas fa-shield-check"></i> Secure Document Storage</li>
+                            <li><i class="fas fa-user-check"></i> Quick Verification Process</li>
+                        </ul>
+                        <a href="/register-indian" class="btn btn-primary btn-full">
+                            <i class="fas fa-user-plus"></i> Register as Indian Tourist
+                        </a>
+                    </div>
+                </div>
+
+                <div class="option-card foreign-tourist">
+                    <div class="card-header">
+                        <h3><i class="fas fa-globe"></i> Foreign Tourist</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="features">
+                            <li><i class="fas fa-passport"></i> Passport Verification</li>
+                            <li><i class="fas fa-mobile-alt"></i> International OTP Support</li>
+                            <li><i class="fas fa-shield-check"></i> Secure Document Storage</li>
+                            <li><i class="fas fa-visa"></i> Visa Number Validation</li>
+                        </ul>
+                        <a href="/register-foreign" class="btn btn-success btn-full">
+                            <i class="fas fa-passport"></i> Register as Foreign Tourist
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-section">
+                <p>Already Registered?</p>
+                <div class="login-options">
+                    <a href="/login" class="btn btn-outline">
+                        <i class="fas fa-sign-in-alt"></i> Login to Your Account
+                    </a>
+                    <a href="/admin" class="btn btn-danger">
+                        <i class="fas fa-user-shield"></i> Admin Panel
+                    </a>
+                </div>
+            </div>
+
+            <div class="security-features">
+                <h3>Security Features</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-lock"></i>
+                        <h4>Password Encryption</h4>
+                        <p>Industry-standard bcrypt hashing for maximum security</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-file-shield"></i>
+                        <h4>Document Security</h4>
+                        <p>Encrypted file storage with secure access controls</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-screen"></i>
+                        <h4>OTP Verification</h4>
+                        <p>Two-factor authentication via SMS for added security</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Admin Verification</h4>
+                        <p>Manual document verification by authorized personnel</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Tourist Safety System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/pwa.js"></script>
+</body>
+</html>
